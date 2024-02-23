@@ -1,16 +1,23 @@
-import { View, Text, Image, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TextInput,
+  SafeAreaView,
+} from "react-native";
 import React from "react";
 import { MaterialIcons, FontAwesome5 } from "@expo/vector-icons";
 export default function Header() {
   return (
-    <View>
+    <SafeAreaView>
       <View style={styles.container}>
         <Image
           source={require("../../assets/flower_shop.jpg")}
           style={{
             objectFit: "cover",
             width: "100%",
-            height: 200,
+            height: 185,
             borderRadius: 10,
           }}
         />
@@ -30,7 +37,7 @@ export default function Header() {
           color="black"
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -45,7 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#f2f2f2",
     padding: 10,
-    marginTop: 70,
+    marginTop: 60,
     marginLeft: 50,
     width: "63%",
     flexDirection: "row",
