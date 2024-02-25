@@ -11,7 +11,7 @@ export const OrchidData = [
         category: 'Dendrobium',
         productName: 'Dendrobium nobile',
         description: 'Dendrobium nobile is a member of the family Orchidaceae. It is native to southern China, the Himalayas, and Indochina.',
-        orchidImage: require('../database/OrchidsImages/Dendrobium_lindleyi.jpg'),
+        orchidImage: require('../database/OrchidsImages/Dendrobium_nobile.jpg'),
     },
     {
         id: 3,
@@ -40,5 +40,26 @@ export const OrchidData = [
         productName: 'Cattleya tainan',
         description: 'Cattleya tainan is a species of orchid. It is native to Taiwan.',
         orchidImage: require('../database/OrchidsImages/Cattleya_tainan.jpg'),
-    }
+    },
+    {
+        id: 7,
+        category: 'Phalaenopsis',
+        productName: 'Phalaenopsis amabilis',
+        description: 'Phalaenopsis amabilis is a species of orchid. It is native to the Philippines.',
+        orchidImage: require('../database/OrchidsImages/Phalaenopsis_amabilis.jpg'),
+    },
+    {
+        id: 8,
+        category: 'Phalaenopsis',
+        productName: 'Phalaenopsis aphrodite',
+        description: 'Phalaenopsis aphrodite is a species of orchid. It is native to Taiwan.',
+        orchidImage: require('../database/OrchidsImages/Phalaenopsis_aphrodite.jpg'),
+    },
+    {
+        id: 9,
+        category: 'Phalaenopsis',
+        productName: 'Phalaenopsis bellina',
+        description: 'Phalaenopsis bellina is a species of orchid. It is native to Borneo.',
+        orchidImage: require('../database/OrchidsImages/Phalaenopsis_bellina.jpg'),
+    },
 ]

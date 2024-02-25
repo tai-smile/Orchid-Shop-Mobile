@@ -1,10 +1,102 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Image, ScrollView, TouchableOpacity } from "react-native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-export default function OrchidDetailScreen() {
+export default function OrchidDetailScreen({ route }) {
+  const navigation = useNavigation();
+  const orchid = route.params.orchid;
+  const prevScreen = route.params.prevScreen;
+  const goToPrevScreen = () => {
+    navigation.navigate(prevScreen);
+  };
+
+  const goToFavorite = () => {
+    navigation.navigate("Favorite");
+  };
+
   return (
-    <View>
-      <Text>OrchidDetailScreen</Text>
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View>
+        <View style={styles.orchidDetailHeader}>
+          <TouchableOpacity onPress={goToPrevScreen}>
+            <Ionicons name="arrow-back" size={30} style={styles.arrow} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={goToFavorite}>
+            <MaterialIcons style={styles.heart} name="favorite" size={30} />
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Image source={orchid.orchidImage} style={styles.detailImage} />
+
+          <View style={styles.overviewDetailBox}>
+            <Text style={styles.orchidTitle}>{orchid.productName}</Text>
+            <Text style={styles.orchidDescription}>{orchid.description}</Text>
+            <View>
+              <TouchableOpacity style={styles.favoriteButton}>
+                <Text style={styles.favoriteButtonText}>Favorite</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+
+const styles = StyleSheet.create({
+  arrow: {
+    width: 25,
+    height: 25,
+    marginTop: 25,
+  },
+  heart: {
+    marginTop: 25,
+  },
+  orchidDetailHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 20,
+    marginTop: 25,
+    marginBottom: 10,
+  },
+  detailImage: {
+    width: windowWidth,
+    height: windowHeight / 2,
+  },
+  overviewDetailBox: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  favoriteButton: {
+    backgroundColor: "#1435C9",
+    width: 200,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginHorizontal: 20,
+    marginBottom: 20,
+    marginTop: 20,
+  },
+  favoriteButtonText: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  orchidTitle: {
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+
+  orchidDescription: {
+    fontSize: 20,
+    color: "gray",
+    marginTop: 10,
+  },
+});
