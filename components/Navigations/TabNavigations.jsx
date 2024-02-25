@@ -5,6 +5,7 @@ import HomeScreen from "../HomeScreen/HomeScreen";
 import FavoriteScreen from "../FavoriteScreen/FavoriteScreen";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import HomeNavigation from "./HomeNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +19,7 @@ export default function TabNavigations() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeNavigation}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>
