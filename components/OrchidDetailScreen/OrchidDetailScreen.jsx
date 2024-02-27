@@ -1,19 +1,53 @@
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  ToastAndroid,
+  Alert,
+} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Image, ScrollView, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import OrchidData from "../database/Database";
 
 export default function OrchidDetailScreen({ route }) {
   const navigation = useNavigation();
   const orchid = route.params.orchid;
   const prevScreen = route.params.prevScreen;
+  const favorite = route.params.favorite;
   const goToPrevScreen = () => {
     navigation.navigate(prevScreen);
   };
 
   const goToFavorite = () => {
     navigation.navigate("Favorite");
+  };
+
+  const addFavoriteList = async (item) => {
+    try {
+      const favoriteList = await AsyncStorage.getItem("favoriteList");
+      if (favoriteList) {
+        const list = JSON.parse(favoriteList);
+        const isDuplicate = list.some(
+          (favoriteItem) => favoriteItem.id === item.id
+        );
+        if (isDuplicate) {
+          Alert.alert("This orchid is already in your favorite list");
+        } else {
+          list.push(item);
+          await AsyncStorage.setItem("favoriteList", JSON.stringify(list));
+          Alert.alert("Added to favorite list");
+        }
+      } else {
+        await AsyncStorage.setItem("favoriteList", JSON.stringify([item]));
+        Alert.alert("Added to favorite list");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -34,7 +68,10 @@ export default function OrchidDetailScreen({ route }) {
             <Text style={styles.orchidTitle}>{orchid.productName}</Text>
             <Text style={styles.orchidDescription}>{orchid.description}</Text>
             <View>
-              <TouchableOpacity style={styles.favoriteButton}>
+              <TouchableOpacity
+                style={styles.favoriteButton}
+                onPress={() => addFavoriteList(orchid)}
+              >
                 <Text style={styles.favoriteButtonText}>Favorite</Text>
               </TouchableOpacity>
             </View>

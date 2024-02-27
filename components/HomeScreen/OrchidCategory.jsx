@@ -12,6 +12,7 @@ import React from "react";
 import { useState } from "react";
 import { OrchidData } from "../database/Database";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function OrchidCategory() {
   const [category, setCategory] = useState("");
@@ -23,7 +24,7 @@ export default function OrchidCategory() {
 
   const goToOrchidDetail = (item) => {
     navigation.navigate("OrchidDetailScreen", {
-      prevScreen: "HomeScreen",
+      prevScreen: "Home",
       orchid: item,
     });
   };
