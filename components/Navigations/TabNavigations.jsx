@@ -5,11 +5,14 @@ import HomeScreen from "../HomeScreen/HomeScreen";
 import FavoriteScreen from "../FavoriteScreen/FavoriteScreen";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import HomeNavigation from "./HomeNavigation";
-
+import OrchidDetailScreen from "../OrchidDetailScreen/OrchidDetailScreen";
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigations() {
+  const tabOptions = {
+    tabBarButton: () => null,
+    tabBarStyle: { display: "none" },
+  };
   return (
     <Tab.Navigator
       screenOptions={{
@@ -19,7 +22,7 @@ export default function TabNavigations() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeNavigation}
+        component={HomeScreen}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>
@@ -44,6 +47,11 @@ export default function TabNavigations() {
             <MaterialIcons name="favorite" size={24} color={color} />
           ),
         }}
+      />
+      <Tab.Screen
+        name="OrchidDetailScreen"
+        component={OrchidDetailScreen}
+        options={tabOptions}
       />
     </Tab.Navigator>
   );

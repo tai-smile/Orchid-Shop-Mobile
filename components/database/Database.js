@@ -5,6 +5,7 @@ export const OrchidData = [
         productName: 'Dendrobium lindleyi',
         description: 'Dendrobium lindleyi is a species of orchid. It is native to the Himalayas, China, India, Nepal, Bhutan, Assam, Laos, Myanmar, Thailand, and Vietnam.',
         orchidImage: require('../database/OrchidsImages/Dendrobium_lindleyi.jpg'),
+        favorite: false,
     },
     {
         id: 2,
@@ -12,6 +13,7 @@ export const OrchidData = [
         productName: 'Dendrobium nobile',
         description: 'Dendrobium nobile is a member of the family Orchidaceae. It is native to southern China, the Himalayas, and Indochina.',
         orchidImage: require('../database/OrchidsImages/Dendrobium_nobile.jpg'),
+        favorite: false,
     },
     {
         id: 3,
@@ -19,6 +21,7 @@ export const OrchidData = [
         productName: 'Dendrobium anosmum',
         description: 'Dendrobium anosmum is a species of orchid. It is native to the Himalayas, China, India, Nepal, Bhutan, Assam, Laos, Myanmar, Thailand, and Vietnam.',
         orchidImage: require('../database/OrchidsImages/Dendrobium_anosmum.jpg'),
+        favorite: false,
     },
     {
         id: 4,
@@ -26,6 +29,7 @@ export const OrchidData = [
         productName: 'Cattleya trianae',
         description: 'Cattleya trianae is a species of orchid. It is native to Colombia.',
         orchidImage: require('../database/OrchidsImages/Cattleya_trianae.jpg'),
+        favorite: false,
     },
     {
         id: 5,
@@ -33,6 +37,7 @@ export const OrchidData = [
         productName: 'Cattleya labiata',
         description: 'Cattleya labiata is a species of orchid. It is native to Brazil.',
         orchidImage: require('../database/OrchidsImages/Cattleya_labiata.jpg'),
+        favorite: false,
     },
     {
         id: 6,
@@ -40,6 +45,7 @@ export const OrchidData = [
         productName: 'Cattleya tainan',
         description: 'Cattleya tainan is a species of orchid. It is native to Taiwan.',
         orchidImage: require('../database/OrchidsImages/Cattleya_tainan.jpg'),
+        favorite: false,
     },
     {
         id: 7,
@@ -47,6 +53,7 @@ export const OrchidData = [
         productName: 'Phalaenopsis amabilis',
         description: 'Phalaenopsis amabilis is a species of orchid. It is native to the Philippines.',
         orchidImage: require('../database/OrchidsImages/Phalaenopsis_amabilis.jpg'),
+        favorite: false,
     },
     {
         id: 8,
@@ -54,6 +61,7 @@ export const OrchidData = [
         productName: 'Phalaenopsis aphrodite',
         description: 'Phalaenopsis aphrodite is a species of orchid. It is native to Taiwan.',
         orchidImage: require('../database/OrchidsImages/Phalaenopsis_aphrodite.jpg'),
+        favorite: false,
     },
     {
         id: 9,
@@ -61,5 +69,6 @@ export const OrchidData = [
         productName: 'Phalaenopsis bellina',
         description: 'Phalaenopsis bellina is a species of orchid. It is native to Borneo.',
         orchidImage: require('../database/OrchidsImages/Phalaenopsis_bellina.jpg'),
+        favorite: false,
     },
 ]
