@@ -35,9 +35,15 @@ export default function FavoriteScreen() {
     getFavoriteList();
   }, [isFocused]);
   const handleDelete = () => {
-    Alert.alert("Xác nhận", "Xóa hết thật hả?", [
+    Alert.alert("Xác nhận", "Xóa hết sản phẩm", [
       { text: "Hủy", style: "cancel" },
-      { text: "Xóa", onPress: clearData, style: "destructive" },
+      { text: "Xóa", onPress: removeAll, style: "destructive" },
+    ]);
+  };
+  const handleDeleteOne = (item) => {
+    Alert.alert("Xác nhận", "Bỏ yêu thích sản phẩm này?", [
+      { text: "Hủy", style: "cancel" },
+      { text: "Xóa", onPress: () => removeItem(item), style: "destructive" },
     ]);
   };
   const removeItem = async (itemName) => {
@@ -55,14 +61,27 @@ export default function FavoriteScreen() {
     }
   };
 
-  const clearData = async () => {
+  const removeAll = async () => {
     try {
-      await AsyncStorage.clear();
-      setFavorites([]);
+      const updatedFavorites = [];
+      setFavorites(updatedFavorites);
+      await AsyncStorage.setItem(
+        "favoriteList",
+        JSON.stringify(updatedFavorites)
+      );
     } catch (error) {
-      console.log("Error clearing data:", error);
+      console.log("Error removing all items:", error);
     }
   };
+
+  // const clearData = async () => {
+  //   try {
+  //     await AsyncStorage.clear();
+  //     setFavorites([]);
+  //   } catch (error) {
+  //     console.log("Error clearing data:", error);
+  //   }
+  // };
   const goToOrchidDetail = (item) => {
     navigation.navigate("OrchidDetailScreen", {
       prevScreen: "Home",
@@ -74,7 +93,7 @@ export default function FavoriteScreen() {
     return (
       <View style={{ flex: 1, backgroundColor: "#FFF" }}>
         <FlatList
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 40 }}
           data={favorites}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
@@ -85,7 +104,9 @@ export default function FavoriteScreen() {
               >
                 <Image source={item.orchidImage} style={styles.orchidImage} />
                 <Text style={styles.orchidTitle}>{item.productName}</Text>
-                <TouchableOpacity onPress={() => removeItem(item.productName)}>
+                <TouchableOpacity
+                  onPress={() => handleDeleteOne(item.productName)}
+                >
                   <View>
                     <Ionicons name="ios-heart-sharp" size={24} color="red" />
                   </View>
@@ -100,7 +121,7 @@ export default function FavoriteScreen() {
               style={styles.favoriteButton}
               onPress={handleDelete}
             >
-              <Text style={styles.favoriteButtonText}>Xóa hết</Text>
+              <Text style={styles.favoriteButtonText}>Delete All</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -109,7 +130,7 @@ export default function FavoriteScreen() {
   } else {
     return (
       <View>
-        <Text style={{ textAlign: "center", marginTop: 20, fontSize: 20 }}>
+        <Text style={{ textAlign: "center", marginTop: 50, fontSize: 20 }}>
           Bạn chưa có sản phẩm yêu thích nào
         </Text>
       </View>

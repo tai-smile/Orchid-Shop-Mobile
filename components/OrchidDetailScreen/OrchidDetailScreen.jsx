@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Image, ScrollView, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import OrchidData from "../database/Database";
 
 export default function OrchidDetailScreen({ route }) {
   const navigation = useNavigation();
