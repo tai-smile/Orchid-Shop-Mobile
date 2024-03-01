@@ -7,15 +7,23 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  Pressable,
+  Alert,
 } from "react-native";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { OrchidData } from "../database/Database";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function OrchidCategory() {
   const [category, setCategory] = useState("");
+  const [favoriteList, setFavoriteList] = useState([]);
+  const [orchidData, setOrchidData] = useState(OrchidData);
+
   const navigation = useNavigation();
 
   const filterByCategory = (item) => {
@@ -28,6 +36,59 @@ export default function OrchidCategory() {
       orchid: item,
     });
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const getFavoriteList = async () => {
+        try {
+          const favoriteList = await AsyncStorage.getItem("favoriteList");
+          if (favoriteList) {
+            setFavoriteList(JSON.parse(favoriteList));
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getFavoriteList();
+    }, [])
+  );
+
+  const addFavoriteList = async (item) => {
+    try {
+      const updatedList = [...favoriteList, item];
+      setFavoriteList(updatedList);
+      await AsyncStorage.setItem("favoriteList", JSON.stringify(updatedList));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const toggleFavorite = (item) => {
+    const isFavorite = favoriteList.some(
+      (favoriteItem) => favoriteItem.id === item.id
+    );
+    if (isFavorite) {
+      removeItem(item.productName);
+    } else {
+      addFavoriteList(item);
+    }
+  };
+
+  const removeItem = async (itemName) => {
+    try {
+      const updatedFavorites = favoriteList.filter(
+        (item) => item.productName !== itemName
+      );
+      setFavoriteList(updatedFavorites);
+      await AsyncStorage.setItem(
+        "favoriteList",
+        JSON.stringify(updatedFavorites)
+      );
+    } catch (error) {
+      console.log("Error removing item:", error);
+    }
+  };
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <View>
@@ -57,13 +118,12 @@ export default function OrchidCategory() {
       </View>
       <ScrollView horizontal={false}>
         {OrchidData.filter(filterByCategory).map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => goToOrchidDetail(item)}
-          >
+          <Pressable key={item.id} onPress={() => goToOrchidDetail(item)}>
             <View style={styles.container}>
               <Image source={item.orchidImage} style={styles.orchidImage} />
-              <View style={{ display: "flex", flexDirection: "column" }}>
+              <View
+                style={{ display: "flex", flexDirection: "column", flex: 1 }}
+              >
                 <Text
                   style={{
                     fontSize: 20,
@@ -74,9 +134,28 @@ export default function OrchidCategory() {
                 >
                   {item.productName}
                 </Text>
+                <TouchableOpacity onPress={() => addFavoriteList(item)}>
+                  <View>
+                    <Ionicons
+                      name="ios-heart-sharp"
+                      style={{
+                        marginTop: 55,
+                        position: "absolute",
+                        right: 0,
+                        color: favoriteList.some(
+                          (favoriteItem) => favoriteItem.id === item.id
+                        )
+                          ? "red"
+                          : "black",
+                      }}
+                      size={30}
+                      onPress={() => toggleFavorite(item)}
+                    />
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </ScrollView>
     </View>
